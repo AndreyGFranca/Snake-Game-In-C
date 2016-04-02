@@ -1,16 +1,28 @@
 #include <ncurses.h>
 #include "snake.h"
 
+struct s_body
+{
+  s_coord position;
+};
+
+struct s_snake
+{
+  int lenght;
+  s_coord position;
+  int direction;
+  struct s_body body[START_SNAKE_LENGHT];
+};
+
 struct s_snake *snake_init(void)
 {
   struct s_snake *return_snake = malloc (sizeof(struct s_snake));
   return_snake->direction = RIGHT;
-  return_snake->lenght = 10;
+  return_snake->lenght = START_SNAKE_LENGHT;
   return_snake->position.x = (WORLD_WIDTH - return_snake->lenght) / 2;
   return_snake->position.y = (WORLD_HEIGHT - 1) / 2;
   return return_snake;
 }
-
 /*struct s_snake_body *snake_body_init(struct s_snake *snake)
 {
   int i;
@@ -23,22 +35,20 @@ struct s_snake *snake_init(void)
   return return_body;
 }*/
 
-void move_snake(WINDOW *win, 
-                struct s_snake_body body[],
-                struct s_snake *snake)
+void move_snake( struct s_snake *snake)
 {
   
   int i;
-  wclear(win);
+  wclear(snake_world);
   
   for (i = 0; i < (snake->lenght - 1); i++) 
     {
-      body[i] = body[i + 1];
-      mvwaddch(win, body[i].position.y, body[i].position.x, '@');
+      snake->body[i] = snake->body[i + 1];
+      mvwaddch(snake_world, snake->body[i].position.y, snake->body[i].position.x, '@');
     }
   
-  int x = body[snake->lenght - 1].position.x;
-  int y = body[snake->lenght - 1].position.y;
+  int x = snake->body[snake->lenght - 1].position.x;
+  int y = snake->body[snake->lenght - 1].position.y;
   
   switch (snake->direction)
     {
@@ -59,12 +69,47 @@ void move_snake(WINDOW *win,
       break;
     }
   
-  body[snake->lenght - 1].position.x = x;
-  body[snake ->lenght - 1].position.y = y;
+  snake->body[snake->lenght - 1].position.x = x;
+  snake->body[snake ->lenght - 1].position.y = y;
   
-  mvwaddch(win, y, x, '#');
+  mvwaddch(snake_world, y, x, '#');
   
-  box(win, 0 , 0);
+  box(snake_world, 0 , 0);
   
-  wrefresh(win);
+  wrefresh(snake_world);
+}
+
+inline void game_loop(struct s_snake *snake){
+  int ch, i;
+  for (i = 0; i < snake->lenght; i++)
+    {
+      snake->body[i].position.x = snake->position.x + i;
+      snake->body[i].position.y = snake->position.y;
+    }
+
+  while ((ch = getch()) != 'x')
+    {
+      move_snake(snake);
+      if(ch != ERR)
+        {
+          switch(ch)
+            {
+            case KEY_UP:
+              snake->direction = UP;
+              break;
+            case KEY_DOWN:
+              snake->direction = DOWN;
+              break;
+            case KEY_RIGHT:
+              snake->direction = RIGHT;
+              break;
+            case KEY_LEFT:
+              snake->direction = LEFT;
+              break;
+            default:
+              break;
+            }
+        }
+    }
+
 }
