@@ -9,8 +9,8 @@ WINDOW *snake_world;
 
 void draw_menu(int item);
 
-void init_menu_window();
+void init_game_window();
 
-inline void init_game_window();
+void init_menu_window();
 
 #endif // WINDOW_H

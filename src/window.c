@@ -1,5 +1,6 @@
 #include "window.h"
 #include "main.h"
+#include "snake.h"
 
 /*
  * Função que desenha, e manipula o menu da primeira janela.
@@ -29,15 +30,41 @@ void draw_menu(int item)
 }
 
 /*
+ * Função que inicializa a janela do jogo.
+ */
+void init_game_window()
+{
+    struct s_snake *snake = snake_init();
+    int offsetx, offsety;
+    initscr();
+    noecho();
+    cbreak();
+    timeout(TICKRATE);
+    keypad(stdscr, TRUE);
+    refresh();
+
+    offsetx = (COLS - WORLD_WIDTH) / 2;
+    offsety = (LINES - WORLD_HEIGHT) / 2;
+
+    snake_world = newwin(WORLD_HEIGHT,
+                         WORLD_WIDTH,
+                         offsety,
+                         offsetx);
+    game_loop(snake);
+
+    delwin(snake_world);
+
+    endwin();
+}
+
+/*
  * Funçao que inicializa a primeira janela.
  */
 void init_menu_window()
 {
-
     int key, menu_item = 0;
 
     initscr();
-
     draw_menu(menu_item);
     keypad(stdscr,TRUE);
     noecho();
@@ -55,8 +82,17 @@ void init_menu_window()
             if(menu_item < 0) menu_item = MENUMAX-1;
             break;
         case '\n':
-            if (menu_item = 0)
-                menu_item = MENUMAX-1;
+            if (menu_item == MENUMAX - 1){
+                delwin(stdscr);
+                endwin();
+            }
+            else if (menu_item == 0){
+                endwin();
+                init_game_window();
+            }
+            else if(menu_item == MENUMAX - 2){
+                delwin(stdscr);
+            }
             break;
         default:
             break;
@@ -67,26 +103,3 @@ void init_menu_window()
     echo();
     endwin();
 }
-
-/*
- * Função que inicializa a janela do jogo.
- */
-inline void init_game_window()
-{
-    int offsetx, offsety;
-    initscr();
-    noecho();
-    cbreak();
-    timeout(TICKRATE);
-    keypad(stdscr, TRUE);
-    refresh();
-
-    offsetx = (COLS - WORLD_WIDTH) / 2;
-    offsety = (LINES - WORLD_HEIGHT) / 2;
-
-    snake_world = newwin(WORLD_HEIGHT,
-                         WORLD_WIDTH,
-                         offsety,
-                         offsetx);
-}
-
