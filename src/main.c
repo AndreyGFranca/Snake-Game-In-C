@@ -1,9 +1,10 @@
 #include "main.h"
 #include "snake.h"
-
+#include "window.h"
 
 int main (void){
-  int offsetx, offsety;
+    init_menu_window();
+    /*  int offsetx, offsety;
   struct s_snake *snake = snake_init();
   
   initscr();
@@ -25,5 +26,5 @@ int main (void){
 
   delwin(snake_world);
 
-  endwin();
+  endwin();*/
 }
