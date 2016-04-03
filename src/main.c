@@ -3,7 +3,8 @@
 #include "window.h"
 
 int main (void){
-    init_menu_window();
+    R = 1;
+    init_main_window();
     /*  int offsetx, offsety;
   struct s_snake *snake = snake_init();
   

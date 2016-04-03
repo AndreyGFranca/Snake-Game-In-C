@@ -1,6 +1,7 @@
 #include "window.h"
 #include "main.h"
 #include "snake.h"
+#include "highscores.h"
 
 /*
  * Função que desenha, e manipula o menu da primeira janela.
@@ -39,7 +40,8 @@ void init_game_window()
     initscr();
     noecho();
     cbreak();
-    timeout(TICKRATE);
+    set_snake_speed(snake, 200);
+    timeout(get_snake_speed(snake));
     keypad(stdscr, TRUE);
     refresh();
 
@@ -60,7 +62,7 @@ void init_game_window()
 /*
  * Funçao que inicializa a primeira janela.
  */
-void init_menu_window()
+void init_main_window()
 {
     int key, menu_item = 0;
 
@@ -102,4 +104,34 @@ void init_menu_window()
 
     echo();
     endwin();
+}
+
+/*
+ * Funçao que inicializa a janela dos recordes.
+ */
+void init_highscores_window(){
+    int offsetx, offsety;
+    initscr();
+    noecho();
+    cbreak();
+    refresh();
+
+    offsetx = (COLS - WORLD_WIDTH) / 2;
+    offsety = (LINES - WORLD_HEIGHT) / 2;
+
+    highscores_win = newwin(WORLD_HEIGHT, WORLD_WIDTH, offsety, offsetx);
+}
+
+void show_game_over_window()
+{
+    int offsetx, offsety;
+    initscr();
+    noecho();
+    cbreak();
+    refresh();
+
+    offsetx = (COLS - WORLD_WIDTH) / 2;
+    offsety = (LINES - WORLD_HEIGHT) / 2;
+
+    game_over_win = newwin(WORLD_HEIGHT, WORLD_WIDTH, offsety, offsetx);
 }
