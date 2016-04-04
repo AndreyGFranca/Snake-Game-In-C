@@ -1,22 +1,22 @@
 #include <stdlib.h>
+/*This file is part of Snake Game.
+ *
+ *    Snake Game is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    Snake Game is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.*
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with Snake Game.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include "food.h"
 #include "main.h"
-
-/*
- * Funçao que gera um numero aleatorio, em um determinado intervalo
- */
-int aleatorio(int a,int b){
-    double r;
-    r=(double)rand()/RAND_MAX;
-    return (int)(a+(r*(b-a)));
-}
-
-/*
- * Função recursiva;
- */
-void iniciar_aleatorio(int n) {
-    return n==1 ? 1 : iniciar_aleatorio(n - 1);
-}
 
 struct s_food
 {
@@ -53,7 +53,7 @@ void make_food(struct s_food *food,
                int snake_head_y)
 {
     if (COLLISION == true){
-        iniciar_aleatorio(3);
+        iniciar_aleatorio();
 
         /*
          *Gera um numero aleatorio que esteja dentro da janela, estes numeros

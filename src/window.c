@@ -1,3 +1,19 @@
+/*This file is part of Snake Game.
+ *
+ *    Snake Game is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    Snake Game is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.*
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with Snake Game.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include <stdlib.h>
 #include "window.h"
 #include "main.h"
@@ -108,24 +124,6 @@ void init_main_window()
     echo();
     endwin();
 }
-
-/*
- * Funçao que inicializa a janela dos recordes PS> Incompleto daqui pra baixo.
- */
-/*void show_scores_window(){
-    int ch;
-    initscr();
-    noecho();
-    cbreak();
-    wclear(scores_win);
-    scores_win = newwin(0,0,0,0);
-    while(true){
-        get_scores(scores_win);
-        wrefresh(scores_win);
-    }
-
-
-}*/
 
 void show_game_over_window()
 {

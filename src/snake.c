@@ -1,3 +1,19 @@
+/*This file is part of Snake Game.
+ *
+ *    Snake Game is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    Snake Game is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.*
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with Snake Game.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 #include <ncurses.h>
 #include <stdlib.h>
 #include "snake.h"
@@ -19,7 +35,7 @@ struct s_snake
     unsigned short int speed;
     unsigned short int lenght, scores;
     s_coord position;
-    struct s_body body[150];
+    struct s_body body[TAM_MAX];
 };
 
 void set_snake_speed(struct s_snake *snake, int new_speed){
@@ -74,10 +90,6 @@ int move_snake(struct s_snake *snake, struct s_food *food)
         snake->body[i] = snake->body[i + 1];
         mvwaddch(snake_world, snake->body[i].position.y, snake->body[i].position.x, 'o');
 
-        /*
-         * Verifica se a snake colidiu com ela mesma.
-         */
-
     }
 
    /*
@@ -131,7 +143,7 @@ int move_snake(struct s_snake *snake, struct s_food *food)
 void game_loop(){
     int ch, i, food_x, food_y;
     struct s_snake *snake = snake_init();
-    struct s_food *food = food_init(); //= food_init();
+    struct s_food *food = food_init();
     snake->lenght = 5;
     set_snake_speed(snake, 200);
     timeout(get_snake_speed(snake));
