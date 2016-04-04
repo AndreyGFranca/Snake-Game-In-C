@@ -4,7 +4,9 @@
 
 int main (void){
     R = 1;
+    COLLISION = true;
     init_main_window();
+
     /*  int offsetx, offsety;
   struct s_snake *snake = snake_init();
   

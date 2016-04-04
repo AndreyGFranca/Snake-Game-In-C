@@ -5,11 +5,12 @@
 
 #define WORLD_WIDTH 50
 #define WORLD_HEIGHT 20
-#define START_SNAKE_LENGHT 10
+#define START_SNAKE_LENGHT 3
 
 enum direction { UP, DOWN, RIGHT, LEFT };
 
 bool U, D, R, L;
+bool COLLISION;
 
 typedef struct {
     unsigned short int x;

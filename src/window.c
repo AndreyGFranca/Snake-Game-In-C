@@ -2,6 +2,7 @@
 #include "main.h"
 #include "snake.h"
 #include "highscores.h"
+#include "food.h"
 
 /*
  * Função que desenha, e manipula o menu da primeira janela.
@@ -34,14 +35,11 @@ void draw_menu(int item)
  * Função que inicializa a janela do jogo.
  */
 void init_game_window()
-{
-    struct s_snake *snake = snake_init();
+{   
     int offsetx, offsety;
     initscr();
     noecho();
     cbreak();
-    set_snake_speed(snake, 200);
-    timeout(get_snake_speed(snake));
     keypad(stdscr, TRUE);
     refresh();
 
@@ -52,7 +50,7 @@ void init_game_window()
                          WORLD_WIDTH,
                          offsety,
                          offsetx);
-    game_loop(snake);
+    game_loop();
 
     delwin(snake_world);
 
