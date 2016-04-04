@@ -19,7 +19,7 @@ struct s_snake
     unsigned short int speed;
     unsigned short int lenght;
     s_coord position;
-    struct s_body body[START_SNAKE_LENGHT];
+    struct s_body body[150];
 };
 
 void set_snake_speed(struct s_snake *snake, int new_speed){
@@ -97,16 +97,28 @@ int move_snake(struct s_snake *snake, struct s_food *food)
 
 
     /*
-     * A cabeça da snake recebe novas cordenadas.
+     * A cabeça da snake recebe novas cordenadas, ou seja um ++.
+     * Esta parta faz com que a snake se movimente.
      */
     snake->body[snake->lenght - 1].position.x = x;
     snake->body[snake ->lenght - 1].position.y = y;
-    COLLISION = check_food_collision(food, x, y);
-    mvwaddch(snake_world, y, x, '#');
-    box(snake_world, 0 , 0);
+
     /*
-     * Checa se o usuario colidiu com a comida.
+     * Checa se o usuario colidiu com a comida, retorna true caso sim,
+     * e falso caso nao, e armazena o valor na variavel COLLISION que sera
+     * analisada dentro da funçao make_food.
      */
+    COLLISION = check_food_collision(food, x, y);
+
+    /*
+     * Printa a cabeça da snake, com suas novas cordenadas
+     */
+    mvwaddch(snake_world, y, x, '@');
+
+    /*
+     * Desenha o quadrado ao redor da tela.
+     */
+    box(snake_world, 0 , 0);
     wrefresh(snake_world);
 }
 
@@ -114,6 +126,7 @@ void game_loop(){
     int ch, i, food_x, food_y;
     struct s_snake *snake = snake_init();
     struct s_food *food = food_init(); //= food_init();
+    snake->lenght = 5;
     set_snake_speed(snake, 200);
     timeout(get_snake_speed(snake));
 
@@ -130,6 +143,10 @@ void game_loop(){
         snake->body[i].position.y = snake->position.y;
     }
 
+    /*
+     * Aqui inicia o loop do jogo, que faz com que tudo funcione, este switch
+     * e para ler se as setas foram apertadas.
+     */
     while ((ch = getch()) != 'x')
     {
         move_snake(snake, food);

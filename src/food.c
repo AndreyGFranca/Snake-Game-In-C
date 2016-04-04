@@ -2,6 +2,9 @@
 #include "food.h"
 #include "main.h"
 
+/*
+ * Funçao que gera um numero aleatorio, em um determinado intervalo
+ */
 int aleatorio(int a,int b){
     double r;
     r=(double)rand()/RAND_MAX;
@@ -36,15 +39,23 @@ int get_food_pos_y(struct s_food *food){
     return food->position.y;
 }
 
-void make_food(struct s_food *food,struct
-               s_snake *snake,
+/*
+ * Funçao que printa um 'x' na tela para representar o food. Caso a cabeça
+ * da snake tenha as mesmas cordenadas que o food, entao a snake recebe
+ * mais um em sua variavel lenght, ou seja mais um em tamanho
+ */
+void make_food(struct s_food *food,
+               struct s_snake *snake,
                int snake_head_x,
                int snake_head_y)
 {
-    static int new_lenght;
-
     if (COLLISION == true){
         iniciar_aleatorio();
+
+        /*
+         *Gera um numero aleatorio que esteja dentro da janela, estes numeros
+         * serao respectivamente as cordenadas do food
+         */
         food->position.x = aleatorio(((COLS - WORLD_WIDTH) / 2) + 2, WORLD_WIDTH - 2);
         food->position.y = aleatorio(((LINES - WORLD_HEIGHT) / 2) + 2, WORLD_HEIGHT - 2);
         mvwaddch(snake_world, food->position.y, food->position.x, ' ');
@@ -52,10 +63,14 @@ void make_food(struct s_food *food,struct
     mvwaddch(snake_world, food->position.y, food->position.x, 'x');
 
     if ((snake_head_x == food->position.x) && (snake_head_y == food->position.y)){
-        set_snake_lenght(snake, new_lenght++);
+        snake_lenght++;
+        set_snake_lenght(snake, snake_lenght);
     }
 }
 
+/*
+ * Funçao booleana que retorna true se a snake comeu o food, e false caso nao
+ */
 bool check_food_collision(struct s_food *food,
                           int snake_head_x,
                           int snake_head_y)

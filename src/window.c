@@ -50,6 +50,8 @@ void init_game_window()
                          WORLD_WIDTH,
                          offsety,
                          offsetx);
+
+    /*Entra no loop do jogo*/
     game_loop();
 
     delwin(snake_world);
@@ -88,6 +90,8 @@ void init_main_window()
             }
             else if (menu_item == 0){
                 endwin();
+
+                /*Fecha a janela atual e incia um outra janela.*/
                 init_game_window();
             }
             else if(menu_item == MENUMAX - 2){
@@ -105,7 +109,7 @@ void init_main_window()
 }
 
 /*
- * Funçao que inicializa a janela dos recordes.
+ * Funçao que inicializa a janela dos recordes PS> Incompleto daqui pra baixo.
  */
 void init_highscores_window(){
     int offsetx, offsety;
