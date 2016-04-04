@@ -6,7 +6,7 @@
 #define MENUMAX 3
 
 WINDOW *snake_world;
-WINDOW *highscores_win;
+WINDOW *scores_win;
 WINDOW *game_over_win;
 
 void draw_menu(int item);

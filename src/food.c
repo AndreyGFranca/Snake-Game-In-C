@@ -10,9 +10,12 @@ int aleatorio(int a,int b){
     r=(double)rand()/RAND_MAX;
     return (int)(a+(r*(b-a)));
 }
-void iniciar_aleatorio(void) {
-    srand((unsigned int)time(NULL));
-    rand();  rand();  rand(); rand();
+
+/*
+ * Função recursiva;
+ */
+void iniciar_aleatorio(int n) {
+    return n==1 ? 1 : iniciar_aleatorio(n - 1);
 }
 
 struct s_food
@@ -50,7 +53,7 @@ void make_food(struct s_food *food,
                int snake_head_y)
 {
     if (COLLISION == true){
-        iniciar_aleatorio();
+        iniciar_aleatorio(3);
 
         /*
          *Gera um numero aleatorio que esteja dentro da janela, estes numeros

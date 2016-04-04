@@ -2,7 +2,7 @@
 #include "window.h"
 #include "main.h"
 #include "snake.h"
-#include "highscores.h"
+#include "scores.h"
 #include "food.h"
 
 /*
@@ -14,10 +14,10 @@ void draw_menu(int item)
     char main_menu[] = "Snake Game!";
     char menu[MENUMAX][21] = {
         "INICIAR JOGO",
-        "HIGHSCORES",
+        " ",
         "SAIR",
     };
-
+    curs_set(0);
     clear();
     start_color();
     init_pair(1,COLOR_WHITE,COLOR_BLUE);
@@ -78,12 +78,12 @@ void init_main_window()
         switch(key)
         {
         case KEY_DOWN:
-            menu_item++;
+            menu_item+=2;
             if(menu_item > MENUMAX-1) menu_item = 0;
             break;
         case KEY_UP:
-            menu_item--;
-            if(menu_item < 0) menu_item = MENUMAX-1;
+            menu_item-=2;
+            if(menu_item < 0) menu_item = MENUMAX -1;
             break;
         case '\n':
             if (menu_item == MENUMAX - 1){
@@ -97,7 +97,6 @@ void init_main_window()
                 init_game_window();
             }
             else if(menu_item == MENUMAX - 2){
-                delwin(stdscr);
             }
             break;
         default:
@@ -113,34 +112,33 @@ void init_main_window()
 /*
  * Funçao que inicializa a janela dos recordes PS> Incompleto daqui pra baixo.
  */
-void init_highscores_window(){
-    int offsetx, offsety;
+/*void show_scores_window(){
+    int ch;
     initscr();
     noecho();
     cbreak();
-    refresh();
+    wclear(scores_win);
+    scores_win = newwin(0,0,0,0);
+    while(true){
+        get_scores(scores_win);
+        wrefresh(scores_win);
+    }
 
-    offsetx = (COLS - WORLD_WIDTH) / 2;
-    offsety = (LINES - WORLD_HEIGHT) / 2;
 
-    highscores_win = newwin(WORLD_HEIGHT, WORLD_WIDTH, offsety, offsetx);
-}
+}*/
 
 void show_game_over_window()
 {
-    int offsetx, offsety, ch;
+    int ch;
     initscr();
     noecho();
     cbreak();
-
-    offsetx = (COLS - WORLD_WIDTH) / 2;
-    offsety = (LINES - WORLD_HEIGHT) / 2;
-
     game_over_win = newwin(0,0,0,0);
     while(true){
         mvwaddstr(game_over_win, 10, 25,"Game Over!\n \t\tSeus pontos foram salvos!\n\t");
         wrefresh(game_over_win);
         getch();
+        set_new_score(snake_scores);
         exit(0);
     }
     wrefresh(game_over_win);

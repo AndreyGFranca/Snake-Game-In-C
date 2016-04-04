@@ -11,7 +11,6 @@ enum direction { UP, DOWN, RIGHT, LEFT };
 
 bool U, D, R, L;
 bool COLLISION;
-
 typedef struct {
     unsigned short int x;
     unsigned short int y;
