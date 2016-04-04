@@ -77,9 +77,7 @@ int move_snake(struct s_snake *snake, struct s_food *food)
         /*
          * Verifica se a snake colidiu com ela mesma.
          */
-        /*if(snake->body[snake->lenght - 1].position.x == snake->body[i - 1].position.x &&
-           snake->body[snake->lenght - 1].position.y == snake->body[i - 1].position.y)
-            init_main_window();*/
+
     }
 
    /*
@@ -95,7 +93,12 @@ int move_snake(struct s_snake *snake, struct s_food *food)
         x - 1 == 0 ? x = WORLD_WIDTH - 2 : x--;
 
 
-
+    make_food(food,snake, x, y);
+    for (i = 0; i <= snake->lenght - 1; i++){
+        if(x == snake->body[i].position.x && y == snake->body[i].position.y)
+        delwin(snake_world);
+        show_game_over_window();
+    }
     /*
      * A cabeça da snake recebe novas cordenadas, ou seja um ++.
      * Esta parta faz com que a snake se movimente.

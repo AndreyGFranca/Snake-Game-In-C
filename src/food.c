@@ -63,7 +63,7 @@ void make_food(struct s_food *food,
     mvwaddch(snake_world, food->position.y, food->position.x, 'x');
 
     if ((snake_head_x == food->position.x) && (snake_head_y == food->position.y)){
-        snake_lenght++;
+        snake_lenght+=4;
         set_snake_lenght(snake, snake_lenght);
     }
 }
