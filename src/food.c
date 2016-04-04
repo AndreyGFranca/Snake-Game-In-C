@@ -1,4 +1,3 @@
-#include <stdlib.h>
 /*This file is part of Snake Game.
  *
  *    Snake Game is free software: you can redistribute it and/or modify
@@ -14,7 +13,7 @@
  *    You should have received a copy of the GNU General Public License
  *    along with Snake Game.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+#include <stdlib.h>
 #include "food.h"
 #include "main.h"
 
