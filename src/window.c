@@ -1,3 +1,4 @@
+#include <stdlib.h>
 #include "window.h"
 #include "main.h"
 #include "snake.h"
@@ -42,6 +43,7 @@ void init_game_window()
     cbreak();
     keypad(stdscr, TRUE);
     refresh();
+    curs_set(0);
 
     offsetx = (COLS - WORLD_WIDTH) / 2;
     offsety = (LINES - WORLD_HEIGHT) / 2;
@@ -65,7 +67,7 @@ void init_game_window()
 void init_main_window()
 {
     int key, menu_item = 0;
-
+    curs_set(0);
     initscr();
     draw_menu(menu_item);
     keypad(stdscr,TRUE);
@@ -126,14 +128,21 @@ void init_highscores_window(){
 
 void show_game_over_window()
 {
-    int offsetx, offsety;
+    int offsetx, offsety, ch;
     initscr();
     noecho();
     cbreak();
-    refresh();
 
     offsetx = (COLS - WORLD_WIDTH) / 2;
     offsety = (LINES - WORLD_HEIGHT) / 2;
 
-    game_over_win = newwin(WORLD_HEIGHT, WORLD_WIDTH, offsety, offsetx);
+    game_over_win = newwin(0,0,0,0);
+    while(true){
+        mvwaddstr(game_over_win, 10, 25,"Game Over!\n \t\tSeus pontos foram salvos!\n\t");
+        wrefresh(game_over_win);
+        getch();
+        exit(0);
+    }
+    wrefresh(game_over_win);
+
 }

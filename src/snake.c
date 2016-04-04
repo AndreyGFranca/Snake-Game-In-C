@@ -95,9 +95,11 @@ int move_snake(struct s_snake *snake, struct s_food *food)
 
     make_food(food,snake, x, y);
     for (i = 0; i <= snake->lenght - 1; i++){
-        if(x == snake->body[i].position.x && y == snake->body[i].position.y)
-        delwin(snake_world);
-        show_game_over_window();
+        if(x == snake->body[i].position.x && y == snake->body[i].position.y){
+            delwin(snake_world);
+            endwin();
+            show_game_over_window();
+        }
     }
     /*
      * A cabeça da snake recebe novas cordenadas, ou seja um ++.
