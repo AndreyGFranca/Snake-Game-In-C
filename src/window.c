@@ -89,11 +89,11 @@ void init_main_window()
             if (menu_item == MENUMAX - 1){
                 delwin(stdscr);
                 endwin();
+                exit(0);
             }
             else if (menu_item == 0){
                 endwin();
-
-                /*Fecha a janela atual e incia um outra janela.*/
+                clear();
                 init_game_window();
             }
             else if(menu_item == MENUMAX - 2){

@@ -6,7 +6,7 @@
 
 struct s_body;
 struct s_snake;
-unsigned short int snake_lenght;
+unsigned short int snake_lenght, snake_scores;
 
 void set_snake_speed(struct s_snake *snake, int new_speed);
 

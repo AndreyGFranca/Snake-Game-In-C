@@ -64,6 +64,7 @@ void make_food(struct s_food *food,
 
     if ((snake_head_x == food->position.x) && (snake_head_y == food->position.y)){
         snake_lenght+=4;
+        snake_scores+=4;
         set_snake_lenght(snake, snake_lenght);
     }
 }

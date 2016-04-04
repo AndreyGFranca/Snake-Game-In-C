@@ -6,28 +6,5 @@ int main (void){
     R = 1;
     COLLISION = true;
     init_main_window();
-
-    /*  int offsetx, offsety;
-  struct s_snake *snake = snake_init();
-  
-  initscr();
-  noecho();
-  cbreak();
-  timeout(TICKRATE);
-  keypad(stdscr, TRUE);
-  refresh();
-  
-  offsetx = (COLS - WORLD_WIDTH) / 2;
-  offsety = (LINES - WORLD_HEIGHT) / 2;
-
-  snake_world = newwin(WORLD_HEIGHT,
-                       WORLD_WIDTH,
-                       offsety,
-                       offsetx);
-
-  game_loop(snake);
-
-  delwin(snake_world);
-
-  endwin();*/
+    return 0;
 }

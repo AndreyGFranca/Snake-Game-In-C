@@ -17,7 +17,7 @@ struct s_body
 struct s_snake
 {
     unsigned short int speed;
-    unsigned short int lenght;
+    unsigned short int lenght, scores;
     s_coord position;
     struct s_body body[150];
 };
@@ -124,6 +124,7 @@ int move_snake(struct s_snake *snake, struct s_food *food)
      * Desenha o quadrado ao redor da tela.
      */
     box(snake_world, 0 , 0);
+    mvwprintw(snake_world, 1,WORLD_WIDTH / 2, "%d", snake_scores);
     wrefresh(snake_world);
 }
 
@@ -142,6 +143,7 @@ void game_loop(){
      * modificado durante a execução do jogo.
      */
     snake_lenght = snake->lenght;
+    snake_scores = 1;
     for (i = 0; i < snake->lenght; i++)
     {
         snake->body[i].position.x = snake->position.x + i;
